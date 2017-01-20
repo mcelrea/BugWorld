@@ -15,16 +15,16 @@ import java.io.FileNotFoundException;
  */
 public class Actor {
 
-    private int row;
-    private int col;
+    private Location myLoc;
     private Image northImage, southImage, eastImage, westImage;
     private Image northWestImage, southWestImage,
             northEastImage, southEastImage;
     private int dir = Location.NORTH;
+    private World myWorld;
 
-    public Actor(int row, int col, String path) {
-        this.row = row;
-        this.col = col;
+    public Actor(int row, int col, String path, World world) {
+        myLoc = new Location(row,col);
+        myWorld = world;
 
         File file = new File(path);
         try {
@@ -55,22 +55,44 @@ public class Actor {
 
     public void draw(GraphicsContext gc) {
         if(dir == Location.NORTH)
-            gc.drawImage(northImage,col*25, row*25);
+            gc.drawImage(northImage,myLoc.getCol()*25, myLoc.getRow()*25);
         else if(dir == Location.EAST)
-            gc.drawImage(eastImage,col*25, row*25);
+            gc.drawImage(eastImage,myLoc.getCol()*25, myLoc.getRow()*25);
         else if(dir == Location.SOUTH)
-            gc.drawImage(southImage,col*25, row*25);
+            gc.drawImage(southImage,myLoc.getCol()*25, myLoc.getRow()*25);
         else if(dir == Location.WEST)
-            gc.drawImage(westImage,col*25, row*25);
+            gc.drawImage(westImage,myLoc.getCol()*25, myLoc.getRow()*25);
         else if(dir == Location.NORTHWEST)
-            gc.drawImage(northWestImage,col*25-6, row*25-6);
+            gc.drawImage(northWestImage,myLoc.getCol()*25-6, myLoc.getRow()*25-6);
         else if(dir == Location.NORTHEAST)
-            gc.drawImage(northEastImage,col*25-6, row*25-6);
+            gc.drawImage(northEastImage,myLoc.getCol()*25-6, myLoc.getRow()*25-6);
         else if(dir == Location.SOUTHEAST)
-            gc.drawImage(southEastImage,col*25-6, row*25-6);
+            gc.drawImage(southEastImage,myLoc.getCol()*25-6, myLoc.getRow()*25-6);
         else if(dir == Location.SOUTHWEST)
-            gc.drawImage(southWestImage,col*25-6, row*25-6);
+            gc.drawImage(southWestImage,myLoc.getCol()*25-6, myLoc.getRow()*25-6);
     }
+
+    public Image getImage() {
+        if(dir == Location.NORTH)
+            return northImage;
+        else if(dir == Location.EAST)
+            return northImage;
+        else if(dir == Location.SOUTH)
+            return northImage;
+        else if(dir == Location.WEST)
+            return northImage;
+        else if(dir == Location.NORTHWEST)
+            return northImage;
+        else if(dir == Location.NORTHEAST)
+            return northImage;
+        else if(dir == Location.SOUTHEAST)
+            return northImage;
+        else if(dir == Location.SOUTHWEST)
+            return northImage;
+
+        return null;
+    }
+
 
     public void act() {
         dir++;
@@ -78,20 +100,12 @@ public class Actor {
             dir = 1;
     }
 
-    public int getRow() {
-        return row;
+    public Location getMyLoc() {
+        return myLoc;
     }
 
-    public void setRow(int row) {
-        this.row = row;
-    }
-
-    public int getCol() {
-        return col;
-    }
-
-    public void setCol(int col) {
-        this.col = col;
+    public void setMyLoc(Location myLoc) {
+        this.myLoc = myLoc;
     }
 
     public int getDir() {
@@ -100,5 +114,9 @@ public class Actor {
 
     public void setDir(int dir) {
         this.dir = dir;
+    }
+
+    public World getMyWorld() {
+        return myWorld;
     }
 }

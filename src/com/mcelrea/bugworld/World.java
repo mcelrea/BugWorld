@@ -5,22 +5,47 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
+
 public class World {
+    int time = 1;
     Actor[][] actors = new Actor[20][20];
 
     public void addActor(Actor a) {
-        actors[a.getRow()][a.getCol()] = a;
+        actors[a.getMyLoc().getRow()][a.getMyLoc().getCol()] = a;
     }
 
     public void step() {
         //make all Actors act
-        for(int i=0; i < actors.length; i++) {
-            for(int j=0; j < actors[i].length; j++) {
-                if(actors[i][j] != null)
-                    actors[i][j].act();
-            }
+        ArrayList<Actor> allActors = getAllActors();
+        for(int i=0; i < allActors.size(); i++) {
+            allActors.get(i).act();
         }
     }
+
+    public ArrayList<Actor> getAllActors() {
+        ArrayList<Actor> list = new ArrayList<Actor>();
+
+        for(int i=0; i < actors.length; i++) {
+            for(int j=0; j < actors[i].length; j++) {
+                if(actors[i][j] != null) {
+                    list.add(actors[i][j]);
+                }
+            }
+        }
+        return list;
+    }
+
+    public void changeActorLoc(Actor a, Location newLoc) {
+        actors[newLoc.getRow()][newLoc.getCol()] = null;
+        actors[a.getMyLoc().getRow()][a.getMyLoc().getCol()] = null;
+        actors[newLoc.getRow()][newLoc.getCol()] = a;
+    }
+
+
+
+
+
+
 
     public void draw(GraphicsContext gc) {
         gc.setStroke(Color.BLACK);//choose a color
@@ -41,6 +66,6 @@ public class World {
 
     public boolean isValid(Location loc) {
         return loc.getRow() >= 0 && loc.getRow() < actors.length &&
-                loc.getCol() >= 0 && loc.getRow() < actors[loc.getRow()].length;
+                loc.getCol() >= 0 && loc.getCol() < actors[loc.getRow()].length;
     }
 }

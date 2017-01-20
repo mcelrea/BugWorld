@@ -25,11 +25,13 @@ public class Main extends Application {
         root.getChildren().add(canvas);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        world.addActor(new Actor(10,10,"images/actor.png"));
-        world.addActor(new Actor(5,10,"images/actor.png"));
-        world.addActor(new Actor(10,5,"images/actor.png"));
-        world.addActor(new Actor(12,4,"images/actor.png"));
-        world.addActor(new Bug(0,0,"images/bug.png"));
+        //world.addActor(new Actor(10,10,"images/actor.png", world));
+        //world.addActor(new Actor(5,10,"images/actor.png", world));
+        //world.addActor(new Actor(10,5,"images/actor.png", world));
+        world.addActor(new Actor(0,0,"images/actor.png", world));
+        world.addActor(new Bug(15,0,"images/bug.png", world));
+        world.addActor(new Bug(15,10,"images/bug.png", world));
+        world.addActor(new Bug(6,5,"images/bug.png", world));
 
         new AnimationTimer() {
             @Override
