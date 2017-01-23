@@ -28,10 +28,12 @@ public class Main extends Application {
         //world.addActor(new Actor(10,10,"images/actor.png", world));
         //world.addActor(new Actor(5,10,"images/actor.png", world));
         //world.addActor(new Actor(10,5,"images/actor.png", world));
-        world.addActor(new Actor(0,0,"images/actor.png", world));
-        world.addActor(new Bug(15,0,"images/bug.png", world));
+        //world.addActor(new Actor(0,0,"images/actor.png", world));
+        //world.addActor(new Bug(15,0,"images/bug.png", world));
         world.addActor(new Bug(15,10,"images/bug.png", world));
-        world.addActor(new Bug(6,5,"images/bug.png", world));
+        Bug b = new Bug(0,10,"images/bug.png", world);
+        b.setDir(Location.SOUTH);
+        world.addActor(b);
 
         new AnimationTimer() {
             @Override

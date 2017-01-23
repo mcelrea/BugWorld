@@ -22,6 +22,13 @@ public class World {
         }
     }
 
+    public Actor getActorAtLoc(Location loc) {
+        if(isValid(loc)) {
+            return actors[loc.getRow()][loc.getCol()];
+        }
+        return null;
+    }
+
     public ArrayList<Actor> getAllActors() {
         ArrayList<Actor> list = new ArrayList<Actor>();
 

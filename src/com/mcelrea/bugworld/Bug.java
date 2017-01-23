@@ -10,8 +10,11 @@ public class Bug extends Actor{
     @Override
     public void act() {
         Location forward = getMyLoc().getForwardLoc(getDir());
-        if(getMyWorld().isValid(forward)) {
+        if(getMyWorld().isValid(forward) && (getMyWorld().getActorAtLoc(forward) == null ||
+                                                getMyWorld().getActorAtLoc(forward) instanceof Flower)) {
             getMyWorld().changeActorLoc(this,forward);
+            getMyWorld().addActor(new Flower(getMyLoc().getRow(),getMyLoc().getCol(),
+                    "images/flower.png", getMyWorld()));
             setMyLoc(forward);
         }
         else { //cannot move forward
