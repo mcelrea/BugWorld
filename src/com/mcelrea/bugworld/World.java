@@ -42,17 +42,47 @@ public class World {
         return list;
     }
 
+    public ArrayList<Actor> getNeighbors(Location loc) {
+        ArrayList<Actor> list = new ArrayList<Actor>();
+        for(int row=loc.getRow()-1; row <= loc.getRow()+1; row++) {
+            for(int col=loc.getCol()-1; col <= loc.getCol()+1; col++) {
+                Location temp = new Location(row,col);
+                if(isValid(temp) && row != loc.getRow() && col != loc.getCol()) {//this location exists
+                    Actor a = actors[row][col];
+                    if(a != null) { //if there is an actor
+                        list.add(a);
+                    }
+                }
+            }
+        }
+        return list;
+    }
+
+    public ArrayList<Location> getEmptyLocsAround(Location loc) {
+        ArrayList<Location> list = new ArrayList<Location>();
+        for(int row=loc.getRow()-1; row <= loc.getRow()+1; row++) {
+            for(int col=loc.getCol()-1; col <= loc.getCol()+1; col++) {
+                Location temp = new Location(row,col);
+                if(isValid(temp) && row != loc.getRow() && col != loc.getCol()) {//this location exists
+                    Actor a = actors[row][col];
+                    if(a == null || a instanceof Flower) { //if its empty or a Flower
+                        list.add(temp);
+                    }
+                }
+            }
+        }
+        return list;
+    }
+
+    public void removeActor(Actor a) {
+        actors[a.getMyLoc().getRow()][a.getMyLoc().getCol()] = null;
+    }
+
     public void changeActorLoc(Actor a, Location newLoc) {
         actors[newLoc.getRow()][newLoc.getCol()] = null;
         actors[a.getMyLoc().getRow()][a.getMyLoc().getCol()] = null;
         actors[newLoc.getRow()][newLoc.getCol()] = a;
     }
-
-
-
-
-
-
 
     public void draw(GraphicsContext gc) {
         gc.setStroke(Color.BLACK);//choose a color
